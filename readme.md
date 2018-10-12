@@ -11,9 +11,9 @@ fuzz tester. You can try testing cjdns with the fuzz tester by using the code in
 
 In order to run these tools, you'll need:
 
-* llvm-debug
+* llvm-dev  ( `sudo dnf install llvm-dev` )
 * make
-* clang/gcc
+* clang/gcc ( `sudo dnf install clang-devel` )
 * git
 * tar
 * wget

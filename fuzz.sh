@@ -3,11 +3,17 @@ die() { echo "Error $1"; exit 100; }
 
 OUTPUT_DIR="./findings";
 
-PROCESSORS=
-[ "x" = "x$PROCESSORS" ] && which nproc 2>/dev/null >/dev/null && PROCESSORS=`nproc --all`;
-[ "x" = "x$PROCESSORS" ] && which grep 2>/dev/null >/dev/null && [ -f /proc/cpuinfo ] && \
-    PROCESSORS=`grep -c ^processor /proc/cpuinfo`;
-[ "x" = "x$PROCESSORS" ] && die "can't determine number of processors";
+JOBS=
+[ "x" = "x$JOBS" ] && which nproc 2>/dev/null >/dev/null && JOBS=`nproc --all`;
+[ "x" = "x$JOBS" ] && which grep 2>/dev/null >/dev/null && [ -f /proc/cpuinfo ] && \
+    JOBS=`grep -c ^processor /proc/cpuinfo`;
+[ "x" = "x$JOBS" ] && die 'can'\''t determine number of processors, try `JOBS=2 ./fuzz`';
+
+i=0; while [ "x$i" != "x$JOBS" ]; do
+    ## Safety
+    [ "x$i" == "x64" ] die "JOBS doesn't seem to be a number between 0 and 64";
+    i=$(expr $i + 1);
+done
 
 CJDNS_DIR=`echo ./cjdns/build_*`;
 INPUT_DIR="$CJDNS_DIR/fuzz_inputs/";
@@ -15,7 +21,7 @@ INPUT_DIR="$CJDNS_DIR/fuzz_inputs/";
 [ -d ./logs ] || mkdir ./logs || die "could not create log directory";
 
 MS=-M
-i=0; while [ "x$i" != "x$PROCESSORS" ]; do
+i=0; while [ "x$i" != "x$JOBS" ]; do
     echo "-------------------------------------------------------"
     echo "Launching cjdnsfuzz-$i";
     echo;

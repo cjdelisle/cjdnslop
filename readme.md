@@ -24,9 +24,10 @@ To setup the environment for fuzz testing, use:
 
 ## Fuzzing
 
-After setup completes successfully, you can run `./fuzz.sh`, it takes no arguments and it uses
-as many cores as it sees available on the machine. To stop the fuzzers, use `./stop.sh` and to
-check the current status, you can use `./whatsup.sh`.
+After setup completes successfully, you can run `./fuzz.sh`. If you set the environment parameter
+`JOBS` then it will use that number of fuzzers (for example `JOBS=7 ./fuzz.sh`), otherwise it
+will run as many jobs as you have CPU cores. To stop the fuzzers, use `./stop.sh` and to check the
+current status, you can use `./whatsup.sh`.
 
 ## Debugging
 
@@ -41,3 +42,8 @@ reproducible crash.
 
 If you find a crash bug, please write to me cjd@cjdns.fr and we can get it fixed quickly. Thank
 you for your participation!
+
+## Miscellaneous
+
+A file will be created called `./errout.txt`, this is the output from stderr from running the
+fuzzer, if there are any assertion failures, the assertion should appear in this file.

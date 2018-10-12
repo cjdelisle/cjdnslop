@@ -2,7 +2,7 @@
 
 Fuzzy long-eared cjdns test runner.
 
-![fuzzy lop (rabbit breed)](https://github.com/cjdelisle/cjdnslop/fuzzy_lop.jpg)
+![fuzzy lop (rabbit breed)](https://raw.githubusercontent.com/cjdelisle/cjdnslop/master/fuzzy_lop.jpg)
 
 Cjdns tests are designed to work well with [American Fuzzy Lop](http://lcamtuf.coredump.cx/afl/)
 fuzz tester. You can try testing cjdns with the fuzz tester by using the code in the repository.

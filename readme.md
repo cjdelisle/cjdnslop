@@ -11,9 +11,18 @@ fuzz tester. You can try testing cjdns with the fuzz tester by using the code in
 
 In order to run these tools, you'll need:
 
-* llvm-dev  ( `sudo dnf install llvm-dev` )
+* llvm-dev
+  * debian
+    * Install clang and llvm: `sudo apt install llvm-5.0-dev`
+    * Fix name of llvm-config: ```sudo ln -s `which llvm-config-5.0` /usr/local/bin/llvm-config```
+  * fedora `sudo dnf install llvm-dev`
 * make
-* clang/gcc ( `sudo dnf install clang-devel` )
+* clang/gcc
+  * debian:
+    * Install: `sudo apt install clang-5.0`
+    * Fix name of clang: ```sudo ln -s `which clang-5.0` /usr/local/bin/clang```
+    * Fix name of clang++: ```sudo ln -s `which clang++-5.0` /usr/local/bin/clang++```
+  * fedora: `sudo dnf install clang-devel`
 * git
 * tar
 * wget

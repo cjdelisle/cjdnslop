@@ -1,6 +1,11 @@
 #!/bin/sh
 die() { echo "Error $1"; exit 100; }
 
+AFL_FUZZ=`which afl-fuzz || ./afl-*/afl-fuzz` 2>/dev/null;
+AFL_WHATSUP=`which afl-whatsup || ./afl-*/afl-whatsup` 2>/dev/null;
+[ -e $AFL_FUZZ ] || die "missing afl-fuzz -- did you run ./setup.sh ?"
+[ -e $AFL_WHATSUP ] || die "missing afl-whatsup -- did you run ./setup.sh ?"
+
 OUTPUT_DIR="./findings";
 
 [ "x" = "x$JOBS" ] && which nproc 2>/dev/null >/dev/null && JOBS=`nproc --all`;
@@ -25,7 +30,7 @@ i=0; while [ "x$i" != "x$JOBS" ]; do
     echo "Launching cjdnsfuzz-$i";
     echo;
     echo '' >./logs/cjdnsfuzz-$i.log
-    ./afl-*/afl-fuzz -i $INPUT_DIR -o $OUTPUT_DIR $MS "cjdnsfuzz-$i" -- \
+    $AFL_FUZZ -i $INPUT_DIR -o $OUTPUT_DIR $MS "cjdnsfuzz-$i" -- \
         $CJDNS_DIR/test_testcjdroute_c fuzz --quiet --stderr-to errout.txt --inittests \
             2>>./logs/cjdnsfuzz-$i.log >>./logs/cjdnsfuzz-$i.log &
     AFL_PID=$!;
@@ -44,4 +49,4 @@ i=0; while [ "x$i" != "x$JOBS" ]; do
     MS=-S
 done
 
-./afl-*/afl-whatsup -s $OUTPUT_DIR;
+$AFL_WHATSUP -s $OUTPUT_DIR;

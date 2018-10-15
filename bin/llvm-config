@@ -1,4 +1,5 @@
 #!/bin/sh
+( >&2 echo 'llvm-config hook has been executed' )
 if test "$1" = "--cxxflags" echo "$CXX" | grep 'g++'; then
     $REAL_LLVM_CONFIG --cxxflags | sed -e 's/-Wcovered-switch-default//' -e 's/-Wstring-conversion//'
 else

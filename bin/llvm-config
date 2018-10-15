@@ -1,7 +1,9 @@
 #!/bin/sh
 ( >&2 echo 'llvm-config hook has been executed' )
 if test "$1" = "--cxxflags" && echo "$CXX" | grep -q 'g++'; then
-    $REAL_LLVM_CONFIG --cxxflags | sed -e 's/-Wcovered-switch-default//' -e 's/-Wstring-conversion//'
+    x=`$REAL_LLVM_CONFIG --cxxflags | sed -e 's/-Wcovered-switch-default//' -e 's/-Wstring-conversion//'`
+    ( >&2 echo "calling gcc: $x" )
+    echo $x
 else
     exec $REAL_LLVM_CONFIG "$@"
 fi

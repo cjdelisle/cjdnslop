@@ -15,8 +15,8 @@ build_afl() {
     [ -f ./afl-fuzz ] || make || die "failed to compile afl";
     cd llvm_mode || die "cd llvm_mode";
     export REAL_LLVM_CONFIG=`which llvm-config`
-    export PATH="`pwd`/../../bin/:${PATH}"
-    [ -f ../afl-clang-fast ] || make || die "failed to compile afl-clang-fast";
+    export PATH=`pwd`/../../bin/:$PATH
+    [ -f ../afl-clang-fast ] || make SHELL='sh -x' || die "failed to compile afl-clang-fast";
     cd ../../ || die "cd ../../";
     export AFL_CLANG_FAST=$AFL_DIR/afl-clang-fast;
     return 0;

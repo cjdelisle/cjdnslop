@@ -5,11 +5,11 @@ matrix:
       addons:
         apt:
           sources:
-            - llvm-toolchain-trusty-6.0
+            - llvm-toolchain-trusty-7
           packages:
             - llvm-6.0-dev
-            - gcc-8-multilib
-            - g++-8-multilib
+            - gcc-4.9
+            - g++-4.9
       script:
         #- mkdir ~/bin
         #- ln -s `which llvm-config-5.0` ~/bin/llvm-config`

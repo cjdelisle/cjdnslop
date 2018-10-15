@@ -15,10 +15,12 @@ matrix:
         #- ln -s `which llvm-config-5.0` ~/bin/llvm-config`
         #- ln -s `which clang-5.0` ~/bin/clang`
         #- export PATH=~/bin/:$PATH
-        - echo `which clang`
-        - echo `which clang++`
-        - echo `which gcc-4.8`
-        - echo `which g++-4.8++`
+        - which clang
+        - which clang++
+        - which gcc-4.8
+        - which g++-4.8
+        - which llvm-config
+        - llvm-config --cxxflags
         #- echo $PATH | awk 'BEGIN{RS=":"}{print "echo ls "$0" && ls "$0}' | bash
         - export CC=gcc-4.8
         - export CXX=g++-4.8

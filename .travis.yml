@@ -16,7 +16,7 @@ matrix:
         #- export PATH=~/bin/:$PATH
         - echo `which clang`
         - echo `which clang++`
-        - echo $PATH | awk 'BEGIN{RS=":"}{print "echo ls "$0" && ls "$0}' | bash
-        - export CC=clang
-        - export CXX=clang++
+        #- echo $PATH | awk 'BEGIN{RS=":"}{print "echo ls "$0" && ls "$0}' | bash
+        - export CC=gcc
+        - export CXX=g++
         - ./setup.sh

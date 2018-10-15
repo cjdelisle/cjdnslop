@@ -2,6 +2,7 @@
 die() { echo "Error: $1"; exit 100; }
 
 build_afl() {
+    echo 'Building AFL'
     which clang >/dev/null || die "requires clang";
     which wget >/dev/null || die "requires wget";
     which tar >/dev/null || die "requires tar";
@@ -11,12 +12,24 @@ build_afl() {
     [ -f ./afl-*/afl-fuzz.c ] || tar -zxvf afl-latest.tgz || die "tar -zxvf afl-latest.tgz failed";
 
     cd afl-* || die "cd afl-*";
+
+    if test "x$PATCH_AFL" = "x1" && ! test -f ./PATCHED ; then
+        echo 'Applying patches to afl'
+        ls ../patches/*.patch | while read x; do
+            echo "Applying $x"
+            patch -p0 < $x || die "failed patch";
+        done
+        echo '' > ./PATCHED
+    fi
+
     export AFL_DIR=`pwd`;
     [ -f ./afl-fuzz ] || make || die "failed to compile afl";
     cd llvm_mode || die "cd llvm_mode";
-    export REAL_LLVM_CONFIG=`which llvm-config`
-    export PATH=`pwd`/../../bin/:$PATH
-    [ -f ../afl-clang-fast ] || make SHELL='sh -x' || die "failed to compile afl-clang-fast";
+    [ -f ../afl-clang-fast ] && echo 'afl clang fast found';
+    if ! test -f ../afl-clang-fast -a -f ./test-insn; then
+        rm ../afl-clang-fast 2>/dev/null
+        make SHELL='sh -x' || die "failed to compile afl-clang-fast"
+    fi
     cd ../../ || die "cd ../../";
     export AFL_CLANG_FAST=$AFL_DIR/afl-clang-fast;
     return 0;
@@ -29,7 +42,7 @@ use_system_afl() {
 
 which git >/dev/null || die "requires git";
 which make >/dev/null || die "requires make";
-if which afl-clang-fast >/dev/null && which afl-fuzz >/dev/null; then
+if which afl-clang-fast >/dev/null 2>/dev/null && which afl-fuzz >/dev/null 2>/dev/null; then
     use_system_afl;
 else
     build_afl;

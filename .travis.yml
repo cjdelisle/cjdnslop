@@ -22,6 +22,7 @@ matrix:
         - which llvm-config
         - llvm-config --cxxflags
         #- echo $PATH | awk 'BEGIN{RS=":"}{print "echo ls "$0" && ls "$0}' | bash
-        - export CC=clang
+        - export CC=gcc-4.8
         - export CXX=g++-4.8
+        - export PATCH_AFL=1
         - ./setup.sh

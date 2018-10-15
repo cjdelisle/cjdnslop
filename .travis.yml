@@ -1,0 +1,28 @@
+language: c
+matrix:
+  include:
+    - name: "Build AFL"
+      addons:
+        apt:
+          packages:
+            - llvm-5.0-dev
+            - clang-5.0
+      script:
+        - mkdir ~/bin
+        - ln -s `which llvm-config-5.0` ~/bin/llvm-config`
+        - ln -s `which clang-5.0` ~/bin/clang`
+        - export PATH=~/bin/:$PATH
+        - export CC=clang
+        - setup.sh
+    - name: "System AFL"
+      addons:
+        apt:
+          packages:
+            - afl-clang
+      script:
+        #- mkdir ~/bin
+        #- ln -s `which llvm-config-5.0` ~/bin/llvm-config`
+        #- ln -s `which clang-5.0` ~/bin/clang`
+        #- export PATH=~/bin/:$PATH
+        #- export CC=clang
+        - setup.sh

@@ -1,0 +1,6 @@
+#!/bin/sh
+if test "$1" = "--cxxflags" echo "$CXX" | grep 'g++'; then
+    $REAL_LLVM_CONFIG --cxxflags | sed -e 's/-Wcovered-switch-default//' -e 's/-Wstring-conversion//'
+else
+    exec $REAL_LLVM_CONFIG
+fi

@@ -5,10 +5,10 @@ matrix:
       addons:
         apt:
           sources:
-            - llvm-toolchain-trusty-6.0
+            - llvm-toolchain-trusty-5.0
           packages:
-            - llvm-6.0-dev
-            - clang-6.0
+            - llvm-5.0-dev
+            - clang-5.0
       script:
         #- mkdir ~/bin
         #- ln -s `which llvm-config-5.0` ~/bin/llvm-config`
@@ -16,6 +16,7 @@ matrix:
         #- export PATH=~/bin/:$PATH
         - echo `which clang`
         - echo `which clang++`
+        - echo $PATH | awk 'BEGIN{RS=":"}{print "echo ls "$0" && ls "$0}' | bash
         - export CC=clang
         - export CXX=clang++
         - ./setup.sh

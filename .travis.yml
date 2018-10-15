@@ -15,4 +15,5 @@ matrix:
         #- ln -s `which clang-5.0` ~/bin/clang`
         #- export PATH=~/bin/:$PATH
         - export CC=clang
+        - export CXX=clang++
         - ./setup.sh

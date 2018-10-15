@@ -8,8 +8,8 @@ matrix:
             - llvm-toolchain-trusty-6.0
           packages:
             - llvm-6.0-dev
-            - gcc-8
-            - g++-8
+            - gcc-8-multilib
+            - g++-8-multilib
       script:
         #- mkdir ~/bin
         #- ln -s `which llvm-config-5.0` ~/bin/llvm-config`

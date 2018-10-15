@@ -5,11 +5,11 @@ matrix:
       addons:
         apt:
           sources:
-            - llvm-toolchain-trusty-7
+            - llvm-toolchain-trusty-6.0
           packages:
-            - llvm-7-dev
-            - gcc-4.8
-            - g++-4.8
+            - llvm-6.0-dev
+            - gcc-8
+            - g++-8
       script:
         #- mkdir ~/bin
         #- ln -s `which llvm-config-5.0` ~/bin/llvm-config`
@@ -17,11 +17,11 @@ matrix:
         #- export PATH=~/bin/:$PATH
         - which clang
         - which clang++
-        - which gcc-4.8
-        - which g++-4.8
+        - which gcc-8
+        - which g++-8
         - which llvm-config
         - llvm-config --cxxflags
         #- echo $PATH | awk 'BEGIN{RS=":"}{print "echo ls "$0" && ls "$0}' | bash
-        - export CC=gcc-4.8
-        - export CXX=g++-4.8
+        - export CC=gcc-8
+        - export CXX=g++-8
         - ./setup.sh

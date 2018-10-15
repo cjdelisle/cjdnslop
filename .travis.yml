@@ -1,14 +1,15 @@
-language: c
+language: c++
 matrix:
   include:
     - name: "Build AFL"
       addons:
         apt:
           sources:
-            - llvm-toolchain-trusty-4.0
+            - llvm-toolchain-trusty-5.0
           packages:
-            - llvm-4.0-dev
-            - clang-4.0
+            - llvm-5.0-dev
+            - gcc-4.8
+            - g++-4.8
       script:
         #- mkdir ~/bin
         #- ln -s `which llvm-config-5.0` ~/bin/llvm-config`

@@ -25,7 +25,7 @@ build_afl() {
     fi
 
     export AFL_DIR=`pwd`;
-    [ -f ./afl-fuzz ] || make || die "failed to compile afl";
+    [ -f ./afl-fuzz ] || AFL_NO_X86=1 make || die "failed to compile afl";
     cd llvm_mode || die "cd llvm_mode";
     [ -f ../afl-clang-fast ] && echo 'afl clang fast found';
     if ! test -f ../afl-clang-fast -a -f ./test-insn; then

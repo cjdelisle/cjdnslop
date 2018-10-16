@@ -5,10 +5,10 @@ matrix:
       addons:
         apt:
           sources:
-            - llvm-toolchain-trusty-6
+            - llvm-toolchain-trusty-5.0
           packages:
-            - llvm-6-dev
-            - clang-6
+            - llvm-5.0-dev
+            - clang-5.0
       script:
         - export CC=clang
         - export CXX=clang++

@@ -1,6 +1,6 @@
 #!/bin/sh
 die() { echo "Error $1"; exit 100; }
-AFL_DIR=`echo ./afl/afl-*`
+AFL_DIR=`echo ./afl/afl-2*`
 AFL_FUZZ=`which afl-fuzz 2>/dev/null || echo $AFL_DIR/afl-fuzz`;
 AFL_WHATSUP=`which afl-whatsup 2>/dev/null || echo $AFL_DIR/afl-whatsup`;
 [ -f "$AFL_FUZZ" ] || die "missing afl-fuzz -- did you run ./setup.sh ?"

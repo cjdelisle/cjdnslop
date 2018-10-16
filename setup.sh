@@ -8,17 +8,18 @@ build_afl() {
     which tar >/dev/null || die "requires tar";
     llvm-config --version >/dev/null || die "requires llvm development version";
 
+    cd afl;
     [ -f afl-latest.tgz ] || wget http://lcamtuf.coredump.cx/afl/releases/afl-latest.tgz || die "wget failed";
     [ -f ./afl-*/afl-fuzz.c ] || tar -zxvf afl-latest.tgz || die "tar -zxvf afl-latest.tgz failed";
 
     cd afl-* || die "cd afl-*";
 
-    if test "x$PATCH_AFL" = "x1" && ! test -f ./PATCHED ; then
-        echo 'Applying patches to afl'
-        ls ../patches/*.patch | while read x; do
+    if ! test -f ./PATCHED ; then
+        echo 'Applying patch to afl'
+        ls ../*.patch | while read x; do
             echo "Applying $x"
-            patch -p0 < $x || die "failed patch";
-        done
+            patch -p2 < $x || die "failed patch";
+        done || die "could not patch";
         echo '' > ./PATCHED
     fi
 
@@ -30,7 +31,7 @@ build_afl() {
         rm ../afl-clang-fast 2>/dev/null
         make SHELL='sh -x' || die "failed to compile afl-clang-fast"
     fi
-    cd ../../ || die "cd ../../";
+    cd ../../../ || die "cd ../../../";
     export AFL_CLANG_FAST=$AFL_DIR/afl-clang-fast;
     return 0;
 }

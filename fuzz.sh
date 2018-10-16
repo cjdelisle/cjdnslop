@@ -1,8 +1,8 @@
 #!/bin/sh
 die() { echo "Error $1"; exit 100; }
-
-AFL_FUZZ=`which afl-fuzz || ./afl-*/afl-fuzz` 2>/dev/null;
-AFL_WHATSUP=`which afl-whatsup || ./afl-*/afl-whatsup` 2>/dev/null;
+AFL_DIR=`echo ./afl/afl-*`
+AFL_FUZZ=`which afl-fuzz || $AFL_DIR/afl-fuzz` 2>/dev/null;
+AFL_WHATSUP=`which afl-whatsup || $AFL_DIR/afl-whatsup` 2>/dev/null;
 [ -e $AFL_FUZZ ] || die "missing afl-fuzz -- did you run ./setup.sh ?"
 [ -e $AFL_WHATSUP ] || die "missing afl-whatsup -- did you run ./setup.sh ?"
 

@@ -1,4 +1,4 @@
-language: c++
+language: c
 matrix:
   include:
     - name: "Build AFL"
@@ -10,18 +10,6 @@ matrix:
             - llvm-5.0-dev
             - clang-5.0
       script:
-        #- mkdir ~/bin
-        #- ln -s `which llvm-config-5.0` ~/bin/llvm-config`
-        #- ln -s `which clang-5.0` ~/bin/clang`
-        #- export PATH=~/bin/:$PATH
-        - which clang
-        - file `which clang`
-        - which clang++
-        - which gcc-4.8
-        - which g++-4.8
-        - which llvm-config
-        - llvm-config --cxxflags
-        #- echo $PATH | awk 'BEGIN{RS=":"}{print "echo ls "$0" && ls "$0}' | bash
         - export CC=clang
         - export CXX=clang++
         - ./setup.sh

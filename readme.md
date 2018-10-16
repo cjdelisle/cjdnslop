@@ -2,6 +2,8 @@
 
 Fuzzy long-eared cjdns test runner.
 
+[![Build Status](https://travis-ci.org/cjdelisle/cjdnslop.svg?branch=master)](https://travis-ci.org/cjdelisle/cjdnslop)
+
 ![fuzzy lop (rabbit breed)](https://raw.githubusercontent.com/cjdelisle/cjdnslop/master/fuzzy_lop.jpg)
 
 Cjdns tests are designed to work well with [American Fuzzy Lop](http://lcamtuf.coredump.cx/afl/)
@@ -12,24 +14,24 @@ fuzz tester. You can try testing cjdns with the fuzz tester by using the code in
 In order to run these tools, you'll need:
 
 * llvm-dev
-  * debian
-    * Install clang and llvm: `sudo apt install llvm-5.0-dev`
-    * Fix name of llvm-config: ```sudo ln -s `which llvm-config-5.0` /usr/local/bin/llvm-config```
-  * fedora `sudo dnf install llvm-dev`
+* clang
 * make
-* clang/gcc
-  * debian:
-    * Install: `sudo apt install clang-5.0`
-    * Fix name of clang: ```sudo ln -s `which clang-5.0` /usr/local/bin/clang```
-    * Fix name of clang++: ```sudo ln -s `which clang++-5.0` /usr/local/bin/clang++```
-  * fedora: `sudo dnf install clang-devel`
 * git
 * tar
 * wget
 
-To setup the environment for fuzz testing, use:
+and then you'll need to invoke setup.sh
 
-    ./setup.sh
+### debian/ubuntu
+
+    sudo apt install llvm-5.0-dev clang-5.0
+    export PATH=/usr/lib/llvm-5.0/bin/:$PATH;
+    CC=clang CXX=clang++ ./setup.sh
+
+### fedora
+
+    sudo dnf install clang-devel
+    CC=clang CXX=clang++ ./setup.sh
 
 ## Fuzzing
 

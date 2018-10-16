@@ -3,7 +3,8 @@ die() { echo "Error: $1"; exit 100; }
 
 build_afl() {
     echo 'Building AFL'
-    which clang >/dev/null || die "requires clang";
+    which $CC | grep -q clang || which clang >/dev/null || die "requires clang";
+    which $CXX | grep -q clang || which clang++ >/dev/null || die "requires clang++";
     which wget >/dev/null || die "requires wget";
     which tar >/dev/null || die "requires tar";
     llvm-config --version >/dev/null || die "requires llvm development version";

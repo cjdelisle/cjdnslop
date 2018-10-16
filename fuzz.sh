@@ -1,10 +1,10 @@
 #!/bin/sh
 die() { echo "Error $1"; exit 100; }
 AFL_DIR=`echo ./afl/afl-*`
-AFL_FUZZ=`which afl-fuzz || $AFL_DIR/afl-fuzz` 2>/dev/null;
-AFL_WHATSUP=`which afl-whatsup || $AFL_DIR/afl-whatsup` 2>/dev/null;
-[ -e $AFL_FUZZ ] || die "missing afl-fuzz -- did you run ./setup.sh ?"
-[ -e $AFL_WHATSUP ] || die "missing afl-whatsup -- did you run ./setup.sh ?"
+AFL_FUZZ=`which afl-fuzz 2>/dev/null || echo $AFL_DIR/afl-fuzz`;
+AFL_WHATSUP=`which afl-whatsup 2>/dev/null || echo $AFL_DIR/afl-whatsup`;
+[ -f "$AFL_FUZZ" ] || die "missing afl-fuzz -- did you run ./setup.sh ?"
+[ -f "$AFL_WHATSUP" ] || die "missing afl-whatsup -- did you run ./setup.sh ?"
 
 OUTPUT_DIR="./findings";
 
@@ -15,7 +15,7 @@ OUTPUT_DIR="./findings";
 
 i=0; while [ "x$i" != "x$JOBS" ]; do
     ## Safety
-    [ "x$i" == "x64" ] && die "JOBS doesn't seem to be a number between 0 and 64";
+    [ "x$i" = "x64" ] && die "JOBS doesn't seem to be a number between 0 and 64";
     i=$(expr $i + 1);
 done
 

@@ -1,0 +1,12 @@
+diff -ru ./afl-2.52b/llvm_mode/Makefile ./afl-2.52b_/llvm_mode/Makefile
+--- ./afl-2.52b/llvm_mode/Makefile	2016-06-24 04:38:49.000000000 +0200
++++ ./afl-2.52b_/llvm_mode/Makefile	2018-10-16 12:59:22.000000000 +0200
+@@ -36,7 +36,7 @@
+ CXXFLAGS    += -Wall -D_FORTIFY_SOURCE=2 -g -Wno-pointer-sign \
+                -DVERSION=\"$(VERSION)\" -Wno-variadic-macros
+ 
+-CLANG_CFL    = `$(LLVM_CONFIG) --cxxflags` -fno-rtti -fpic $(CXXFLAGS)
++CLANG_CFL    = `$(LLVM_CONFIG) --cxxflags | sed 's/-fvisibility-inlines-hidden//'` -fno-rtti -fpic $(CXXFLAGS)
+ CLANG_LFL    = `$(LLVM_CONFIG) --ldflags` $(LDFLAGS)
+ 
+ # User teor2345 reports that this is required to make things work on MacOS X.
